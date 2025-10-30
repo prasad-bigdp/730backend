@@ -1,0 +1,59 @@
+DML( Data Manipulation Language):
+                     It is used to manipulate the data such as inserting the data, updating the data and deleting the data
+   1. Insert the data : To insert data into table we can use below syntax like
+        insert into tableNAme values (col1 value,col2 value,....)
+for multi row insert
+        insert into tableNAme values (col1 value,col2 value,....),(col1 value,col2 value,....),(col1 value,col2 value,....),(col1 value,col2 value,....)......
+for specific column insert
+        insert into tableName(col1, col3,col5) values(col1 value, col3 value, col5 value)
+
+  2. Update the data: it is used to modify/update the existing data but we need to specify WHERE clause to detect which row should be updated. If there is no WHERE, it updates in complete table(all rows)
+       UPDATE tablename
+       SET columnName = value
+       WHERE CONDITION;
+change salary of "john" to 10000.00
+       UPDATE employees
+       SET salary = 10000.00
+       WHERE ename="john"
+
+  3. Delete the data : it is used to delete the existing data but we need to specify WHERE clause to detect which row should be deleted . If there is no WHERE, it deletes complate table data(all rows)
+       DELETE FROM tablename
+       WHERE condition;
+    delete details of people whose country is "US"
+      delete from employees where country="US";
+
+-- Task : create a database office and use it. create a table staff with details staff_id, staff_name, staff_age(should be >18), staff_salary, staff_role. perform following queries
+           i. insert atleast 5 rows of data
+           ii. update staff_salary as 20000 whose age<=25
+          iii. delete staff details  whose role is "developer"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

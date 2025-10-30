@@ -1,0 +1,115 @@
+ Backend Development: it refers to the developement of server side application. it like behind the scenes of an app/website
+ client requests the server through API's 
+ Server Responds to the client through API's
+ Server is nothing a system that is hosted on an environment. it connects to DB
+ Main Responsibilities of Backend:
+   i. Processing the requests: Recieves Requests from frontend and respond to it
+   ii. Database Management : store,retrieve and update data in DB
+   iii.Business Logic : it proceeds to do what data needs to be developement
+   iv. Authentication & Security : Manage users,passwords,permisssions
+   v. API developement: Provides endpoints to frontend to interact with Backend
+
+   There are so many backend technologies such as JAVA(spring boot) ,c#(asp.net) , Python(Django /flask) , PHP (laravel),nodejs (expressjs)
+
+  common backend Architectures:
+  i.monolithic Architecture:  it means complete application like frontend, backend logic, database handling bundled together
+  it is easier to start but difficult to scale
+
+  eg: A single node app with everything in single code base
+  
+  ii. Microservices Architectures: Here, API is split into independent services such as auth service,product service, order service etc..,)
+  Each service has its own database and logic
+  Easier to scale and maintain larger systems
+
+  iii. serverless Architecture : for small logics, instead of writing/keeping servers , we can use cloud functions such as Google cloud functions, AWS lamda etc.., .They create API's for your logic without any servers
+  we need to pay for those services
+
+There are some online provides called BAAS(Backend as a service) which can be used by replacing complete backend. Those service provides backend and db at a cost. eg: firebase,supabase,appwrite etc..,
+25/10/25:
+Node JS :
+    Node JS is an open source , cross platform javascript runtime environment that allows the developers to run javascript code outside of the web browser - mainly on server side 
+    originally, we need to use browser for js because js only runs in client side but later the js engine in browser runs alone in server makes js also server side
+    Node js was created by ryan dhal in 2009 and it built on Google chrome's v8 js engine, which makes it very fast and efficient
+
+
+where do we use nodejs? 
+  To build web applications, web servers , cli tools, real time application(chat app) , api's that connects frontend and databases
+
+  For large enterprises or multi threaded applications like video conferencing or complex logics, nodejs is not preferable.
+
+
+NodeJs features:
+   1. javascript based : Nodejs uses js as its main programming language. 
+   2. Single threaded Architecture : NodeJS operates on a single thread, it means it can perform only one task at a time. only single thread to handle multiple requests.
+      To handle multiple requests it uses "Event Loop". it reduces memory usage and improves performance
+
+    3. Modular Design: Nodejs applications are built using modules. Modules are nothing but small, reusable code . it like parts of machine. Nodejs loads only the modules that needed for a task
+       eg : http -- used to create servers
+       fs -- used to handle file systems
+       path -- used to handle file paths etc..,
+
+    4. Asynchronous Non Blocking I/O :  it uses an Asynchronous non blocking I/O model.  it means it will not wait one task to finish before starting another. usually used for services like gaming, live streaming or chat
+
+    5. No Buffering: Nodejs does not buffer the data. data is processes in chunks called packets as it arrives. it makes data transfer continuous and fast
+
+
+  Install Node Js :
+      goto nodej.org and download lts version. double tab and click next until install. click install. once it is installed open cmd and check
+         "node -v"
+
+  "HELLO WORLD" code
+  create 'welcome.js' file
+  write "console.log("hello world")
+  run the code using terminal node welcome.js
+  it prints hello world in terminal without using the browser
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

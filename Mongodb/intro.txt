@@ -1,0 +1,97 @@
+MongoDB : Mongodb is a NOSQL document based database which is used to store the data in the form of documents.
+collections are like tables  and inside documents are like rows(individual).
+Each document is a JSON - like object (BSON - binary JSON) which contains field and value pairs.
+{
+    "_id":"56874658736e875346", (auto generated)
+    "name":"raj",
+    "age":24,
+    "email":"a@a.com"
+}
+
+collection   --- similar to table
+document     --- similar to row
+field        --- similar to column
+
+Download & Install Mongodb:
+    goto this website: https://www.mongodb.com/try/download and download
+        i. mongodb community server
+        ii. mongodb compass(GUI)
+        iii. mongodb shell(CLI - Mongosh)
+
+Difference between MySQL and MongoDB:
+   MySQL is RDBMS(relational database management system)  and MongoSB is NoSQL document based database
+   IN MySQL data is stored in tables(row & columns). In Mongodb data is stored within collections(documents & fields)
+   MySQL , structure is fixed. In MongoDB , structure is dynamic
+   MySQL follows ACID principles .MongoDB follows BASE principles(mainly focus on scalability)
+   applications like banking, ERP, analytics uses mySQL. social media apps, ecommerce, real time analytics applications uses mongoDB.
+   mySQL can handle large amount of data but takes lot of memory and a bit slow
+   MongoDB is ideal for not heavy data, mainly used for transactional data. it takes less space and very fast
+
+MongoDB Compass  -- it is a GUI (graphical user interface tool) which is used to do operations on databases . it is similar to workbench in mySQL
+MongoDB shell --- it is a CLI (command line interface tool) which is used to do operations on databases in command prompts. it is also called as Mongosh
+
+
+commands : open mongodb compass and create a connection. select the connection and open mongodb shell. try the below commands
+   show databases --- display all the databases
+   use databaseName --- switch to the particular database. we can use this command even before db created. In MongoDB, databases don't exist without atleast one collection.
+   db.createCollection('collectionName') -- it is used to create collection
+   show collections -- it is used to display all collections
+   delete collection -- db.collectionName.drop();
+
+   MongoDB Data Modelling:   Data in MongodB has flexible schema documents in the same collection.They do not need to have same structure. We can design data model in mongodb in 2 ways
+   i.Embedded data model : In this model, all the data that is needed will be within single document. it is also called de normalized data model
+    {
+        "_id":4354ve543f3,
+        "name":{
+            "first":"shekhar",
+            "last":"prasad
+        },
+        "contact":{
+            "phone":4534353,
+            "email":"a@a.com"
+        }
+    }
+   ii. normalized data model: Tn this data model, we will use  a reference value to connect multiple documents which contains our data.
+   {
+    "_id":4354ve543f3,
+    "empID":11223344
+   }
+   {
+    "empID":11223344,
+    "firstName":"shekhar",
+    "lastNAme":"prasad"
+   }
+   {
+    "empID":11223344,
+    "phone":4534353,
+    "email":"a@a.com"
+   }
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

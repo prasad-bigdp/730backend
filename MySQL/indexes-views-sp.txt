@@ -1,0 +1,212 @@
+Indexes in mySQL: Indexes are used to improve the efficiency and performance of Queries. It helps in retrieving the data faster than without index . It exactly works like textbook indexes . Indexes can be applied to single or multiple columns
+   for eg: if i execute a query
+          select * from employees where ename = "prasad"
+    if there is no index for ename, mySQL checks every row(also called full table scan)
+    if index is available , mySQL can directly jump to the matching rows
+
+    syntax : create index index_name ON table_name(column_name)
+    we can remove the index using drop index index_name ON table_name
+    To see all indexes , we can use show index from table_name
+
+Always primary keys creates an index primary index, uniques ones have unique index . indexes which are created on multiple columns are called composite index
+
+Triggers in mySQL : A trigger is a block of SQL code that automatically runs when an event occurs in a table.
+   Mostly triggers are used to validate the data before inserting , log the changes etc..,
+   syntax : 
+   create trigger trigger_name
+   (before|after) (insert|update|delete)
+   ON table_name
+   FOR EACH Row
+   Begin
+       ---- code
+   END
+
+EG :
+delimiter //
+create trigger basicTigger
+after insert on employees
+for each row
+begin
+   insert into 
+   log_table (message)
+   values
+   (CONCAT(NEW.ename,'new employee is added'));
+end//
+
+we can use keywords NEW and OLD to refer the new and old values of the rows
+we can remove the trigger using drop trigger trigger_name
+
+
+Views in mySQL :  views are like a virtual table that is based on the result of a SQL Query
+   create : 
+        create view indians as  
+        select ename,salary,gender from employees where country = "india"
+
+   Query : select * from indians
+
+   Update : we can update a view only if view is based on single table and does not contains joins or aggregations functions
+ for eg: update indians
+set salary = 30000
+where ename = "peter"
+
+it also edits "peter" salary in original table
+
+we can delete view using  "drop view viewName"
+
+views will not perform insert or delete
+
+
+Stored Procedures:   A stored Procedure is a set of SQL statements stored to the database that can be executed as a unit. They are used in encapsulating logic, removes redundancy  and improve performance
+
+   syntax : 
+            delimiter //
+            create Procedure Procedure_name(parameters)
+            Begin 
+                   -- statements
+            End //
+            delimiter ;
+
+   Eg: delimiter //
+create procedure countryWise(IN c varchar(20))
+begin
+    select * from employees
+    where country = c;
+end //
+delimiter ;
+
+call countryWise("canada");
+
+create a stored procedure which tells employee details based on department
+
+ delimiter //
+create procedure countryWise(IN dn varchar(20))
+begin
+    select * from employees where dept_id = (select did from departments where dname = dn)
+end //
+delimiter ;
+
+create  a stored procedure which tells number of employeed based on department
+
+
+functions :
+  functions are used to perform calculations and return a single value. they are similar to stored procedures but they can be used in SQL statements like select, where etc..,
+   syntax :
+        delimiter //
+        create function function_name(parameters) returns datatype (determinstic/ reads sql data)
+        begin
+            -- code
+            return value;
+        end //
+        delimiter ;
+   use: 
+        select function_name(arguments);
+   These are also called user defined functions(UDF)
+   eg: create a function which returns the total salary of a department
+   create function totalSalary(did int)
+returns int reads sql data
+begin
+    declare total int;
+     set total = (select sum(salary) 
+     from employees where dept_id = did);
+    return total;
+end //
+delimiter ;
+
+ select totalSalary(202);
+
+ 2. write a function to add two numbers and returns it
+delimiter //
+create function addNumbers(a int,b int)
+returns int deterministic
+begin
+    declare c int;
+    set c = a+b;
+    return c;
+end //
+delimiter ;
+
+select addNumbers(10,5);
+
+3. write a function that takes radius and returns area of circle
+delimiter //
+Create function circleArea(r int)
+Returns decimal(10,3) deterministic
+Begin
+Declare a decimal(10,3);
+set a= 3.14XrXr;
+Return a
+End//
+Delimiter;
+
+There are some default and pre defined functions such as 
+   i. aggregate functions:  sum(),count(),max(),min(),avg(),group_concat()
+   ii. string functions : concat(str1,str2),length(str),
+                          LCASE/UCASE (str),replace(str,from,to),
+                          left(str,a)/right(str,a), trim(str)
+select concat("java","script"),length("my sql"),
+       replace("sql","s","p"),
+       left("databas",4),trim(" hello ");*/
+select ucase("john")       
+   iii. math functions : abs(x),ceil(x)/floor(x),round(x,d),power(x,y),
+                         mod(x,y),rand()
+   select abs(-22),mod(5,3),power(5,3),ceil(2.1),
+floor(2.8),round(3.1458968,2),RAND()
+
+   iv. date functions:  NOW()  -- current date & time
+                        CURDATE()/CURTIME()  -- current date/time
+                        YEAR(date)/month(date)/day(date) -- it extracts year/,onth/day from date, DATEDIFF(date1,date2) -- difference in days , 
+                        note: date should be in format YYYY-MM-DD.
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

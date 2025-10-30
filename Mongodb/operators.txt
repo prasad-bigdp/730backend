@@ -1,0 +1,178 @@
+Operators in MongoDB:
+1. Comparison Operators:
+   - $eq: Equal
+   - $ne: Not Equal
+   - $gt: Greater Than
+   - $gte: Greater Than or Equal
+   - $lt: Less Than
+   - $lte: Less Than or Equal
+
+2. Logical Operators:
+   - $and: Logical AND
+   - $or: Logical OR
+   - $not: Logical NOT
+   - $nor: Logical NOR   --  Not + OR
+
+3. Element Operators:
+   - $exists: Checks for the existence of a field
+   - $type: Checks the BSON type of a field
+
+4. Array Operators:
+   - $all: Matches all elements in an array
+   - $elemMatch: Matches at least one element in an array
+   - $size: Matches the number of elements in an array
+
+5 . update Operators:
+   - $set: Sets the value of a field
+   - $unset: Removes a field
+   - $inc: Increments the value of a field
+   - $push: Adds an element to an array
+   - $pull: Removes an element from an array
+
+We can use methods like sort(), limit(), and skip() in conjunction with these operators to refine our queries further.
+sort(): Sorts the results based on specified fields. 1 for ascending, -1 for descending.
+limit(): Limits the number of documents returned.
+skip(): Skips a specified number of documents in the result set.
+count(): prints the total documents count
+
+Queries : 
+1. Write a Query to Print/display all the products in 'products' collection from 'productsDB'
+    db.products.find()
+
+2. Write a Query to print all the products from category 'electronics'
+   db.products.find({category:"electronics"})
+
+3. write a Query to print all the products whose price is greater than 300
+   db.products.find({price:{$gt:300}})
+
+4. write a query to print all th products whose price is less than or equals to 300
+   db.products.find({price:{$lte:300}})
+
+5. write a query to print all the products whose price is between 100 and 500. Print only product names and prices
+
+db.products.find({$and:[{price:{$gt:100}},{price:{$lt:500}}]},{title:1,price:1,_id:0})
+
+6. write a query to print all products title and category whose category is electronics or jewelery
+
+db.products.find({$or:[{category:{$eq:"electronics"}},{category:"jewelery"}]},{title:1,category:1,_id:0})
+
+
+7. write a query to print all products whose price is not greater than 500
+db.products.find({price:{$not:{$gt:500}}})
+
+8. write a query to print all the products whose is "men's clothing" or "electronics" or "jewelery"
+db.products.find({category:{$in:["men's clothing","electronics","jewelery"]}})
+
+we can also use $nin for not in
+
+9. write a query to print all products that contains field , "description"
+db.products.find({description:{$exists:true}})
+
+10.write a query to check whether the price is double or not
+db.products.find({price:{$type:"double"}})
+
+11. write a query to update price of product to 300 whose name is "apple" and change name to "apple2"
+db.products.updateMany({name:"apple"},{$set:{price:300,name:"apple2"}})
+
+12. write a query to remove field "price" from products whose id is 3
+db.products.updateMany({id:3},{$unset:{price:""}})
+
+13. write a query to increase each price by 100 in all products
+db.products.updateMany({},{$inc:{price:100}})
+
+14. write a query to multiply each price by 0.75 in all products
+db.products.updateMany({},{$mul:{price:0.75}})
+
+15. write a query to add tag "good" to tags array in product id '1'
+db.products.updateMany({id:1},{$push:{tags:"good"}})
+
+16. write a query to pull element "good"
+db.products.updateOne({id:1},{$pull:{tags:"good"}})
+
+we can also do pop which is used to remove last element of array. 1 is for last and -1 is for first element
+
+db.products.updateOne({id:1},{$pop:{tags:-1}})
+
+17. rename "price" field as "cost" in all products
+db.products.updateMany({},{$rename:{"price":"cost"}})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// examples of all above operators
+db.products.find({price:{$ne:500}},{title:1,price:1,_id:0})  // not equal
+db.products.find({price:{$gte:300}},{title:1,price:1,_id:0}) // greater than or equal
+db.products.find({price:{$lt:500}},{title:1,price:1,_id:0})  // less than
+db.products.find({price:{$lte:500}},{title:1,price:1,_id:0}) // less than or equal
+db.products.find({$and:[{price:{$gt:100}},{price:{$lt:500}}]},{title:1,price:1,_id:0}) // and operator
+db.products.find({$or:[{category:{$eq:"electronics"}},{category:"jewelery"}]},{title:1,category:1,_id:0}) // or operator
+db.products.find({$not:[{price:{$gt:500}}]},{title:1,price:1,_id:0}) // not operator
+db.products.find({$nor:[{price:{$gt:500}},{category:"jewelery"}]},{title:1,price:1,category:1,_id:0}) // nor operator
+db.products.find({rating:{$exists:true}},{title:1,rating:1,_id:0}) // exists operator
+db.products.find({rating:{$type:"number"}},
+{title:1,rating:1,_id:0}) // type operator
+db.products.find({tags:{$all:["new","sale"]}},{title:1,tags:1,_id:0}) // all operator
+db.products.find({tags:{$elemMatch:{$eq:"new"}}},{title:1,tags:1,_id:0}) // elemMatch operator
+db.products.find({tags:{$size:3}},{title:1,tags:1,_id:0}) // size operator       
+db.products.find().sort({price:1}) // sort by price in ascending order
+db.products.find().sort({price:-1}) // sort by price in descending order
+db.products.find().limit(5) // limit to 5 documents
+db.products.find().skip(5).limit(5) // skip first 5 documents and
+// limit to next 5 documents
+
+// update operators
+db.products.updateOne({title:"Product 1"},{$set:{price:600}})  
+// set price to 600 for product with title "Product 1"
+db.products.updateOne({title:"Product 1"},{$inc:{price:50}})   
+// increment price by 50 for product with title "Product 1"
+
+db.products.updateOne({title:"Product 1"},{$unset:{tags:""}})
+
+// remove tags field for product with title "Product 1"
+db.products.updateOne({title:"Product 1"},{$push:{tags:"featured"}})
+
+// add "featured" to tags array for product with title "Product 1"
+db.products.updateOne({title:"Product 1"},{$pull:{tags:"sale"}})  
+
+// remove "sale" from tags array for product with title "Product 1"  
+
+// Note: Make sure to replace 'products' and 'productsDB' with your actual collection and database names if they are different.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

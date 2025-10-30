@@ -1,0 +1,39 @@
+Indexes in MongoDB:
+- Improve query performance by allowing the database to find documents more quickly.
+- Can be created on any field in a document.
+- Support for various index types (e.g., single field, compound, multi-key, text, geospatial).
+- Indexes consume additional disk space and can impact write performance.
+- Use the `createIndex()` method to create an index.
+
+Every collection in MongoDB has an _id index
+  i . single field index: db.collection.createIndex({fieldName:1})
+  ii. compond index :  db.collection.createIndex({fieldName1:1,fieldname2:1})
+  iii. multi key index : db.collection.createIndex({fielname:1}) . here the field contains array values
+  iv. text index: db.collection.createIndex({context:"text",fieldname:1})
+
+2. sharding:  sharding in MongoDB is a method of horizontal scaling - distributing data across multiple servers(shards)
+vertical scaling vs horizontal scaling: 
+   when data or cpuu or RAM is not enough to handle, we tried to increase it called scaling
+   Increasing resources for same CPU is called Vertical Scaling. 
+   Add more servers to share data/load is called Horizontal scaling
+
+   when shards are created , one shard is considered primary shard
+   sh.shardCollection("dbname.collection",{fieldName:1})
+
+3. Replication :  Replication Provides data redundancy and high availability. it maintains multiple copies of same data on different servers
+Each replicated server is called Replica Set. One of the replica set is considered "primary replica set" , can be used for write operations. other RS are used for read operations. if primary RS fails, one of the other RS is considered as primary
+
+
+BASE PRINCIPLES:
+   it is the opposite of ACID principles. it is used by  noSQL databases such as mongodb, cassandra etc
+   B - Basically Available : system guarantees availability
+    A - Soft state :  system state may change over time
+    S - Eventual consistency : system will become consistent over time
+    E -  Distributed  :  data is distributed across multiple nodes
+BASE mainly focus on availability, speed and scalability rather than consistency and reliability
+
+
+
+
+
+

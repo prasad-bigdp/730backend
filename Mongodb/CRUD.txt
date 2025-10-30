@@ -1,0 +1,70 @@
+Insert the data into collection :
+    we can insert documents into collection using two methods
+    insertOne(document) -- it is used to insert single document
+    insertMany([documents]) -- it is used to insert multiple documents
+
+    Every document should be in that JSON-like format
+
+    syntax: db.collectionName.InsertOne(document)
+    db.collectionName.insertMany([document1,document2,.....])
+
+    eg:
+    db.students.insertOne({"name":"raj","email":"a@a.com","age":55})
+    db.students.insertMany([{"name":"john","age":55},{"name":"puja","age":25}])
+
+ Read the DATA : we can read the data of mongodb using find. it can be done two ways
+   find
+   findOne
+i. read all documents in a collection
+    db.collectionName.find({});
+    In shell//terminal it prints max 20 at a time, for more you can use keyword "it"
+
+ii. read all the documents with age 55 in a collection
+  db.collectionName.find({"age":55})
+
+iii. read only the first document whose age is 55 in a collection
+  db.collectionName.findOne({"age":55})
+
+
+3. update:
+     we can update the already existing data/document in a collection using two ways
+           updateOne: it is used to update single document(first found/matched document)
+           updateMany: it is used to update all the documents that are matched.
+
+     syntax: db.collectionName.updateOne({condition},{updation})
+     db.collectionName.updateMany({condition},{updation})    
+
+Eg: db.collectionName.updateOne({"age":55},{$set:{"country":"india"}})
+db.collectionName.updateMany({"age":55},{$set:{"country":"india"}})
+
+4. delete : we can also delete the documents using two methods
+    deleteOne -- deletes the first matching document
+    deleteMany  -- deletes all the matching documents
+
+  syntax: db.collectionName.deleteOne({condition})
+  db.collectionName.deleteMany({condition})
+
+  eg: db.collectionName.deleteOne({age:55})
+db.collectionName.deleteMany({age:55})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

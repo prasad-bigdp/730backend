@@ -1,0 +1,418 @@
+Operators : operators are used to perform operations . Based on operation, we can divide them as:
+    i. Arithematic Operators : + , - , * ,/, % (remainder)
+   ii. Relational or comparison operators :  > , < ,>= ,<= ,= , != (<>),
+       between....AND  ------ used for a specific range
+       In   --- matches any value in a list
+       Like --- it is used for a pattern
+       IS NULL --- checks for null values
+       IS NOT NULL --- checks for NOT NULL values
+ DQL(Data Query Language) : These commands are used to perform Queries 
+  Eg: SELECT
+  SELECT used to select specific columns or data from given table and displays it
+
+1.  Display all rows and columns from employees table
+      select * from employees
+2.  Display only ename and salary columns from employees table
+     select ename,salary from employees
+3. Display all employees ename and salary whose salary is greater than 20000
+   select ename,salary
+from employees
+where salary>20000;
+
+4. Display employees ename and salary who salary is less than or equals to 20000
+select ename,salary
+from employees
+where salary<=20000;
+
+5.Display employees ename, gender and salary who country is not india
+select ename,gender,salary
+ from employees where country!="india"
+
+6. Display employees ename and salary whose salary is between 15000 and 30000
+   select ename,salary
+   from employees 
+   where salary between 15000 and 30000
+
+7. Display employees ename and salary whose country is in the list of "us" or "uk" 
+   select ename,salary
+   from employees
+   where country IN ("US","UK");
+
+8. Display employees ename, salary whose salary is null
+ select ename,salary
+   from employees
+   where salary IS NULL;
+
+9.  DISPLAY employees ename and salary whose name starts with 'p'
+  select ename, salary
+  from employees
+  where ename LIKE 'p%'
+eg: p , pa,pin,pink,pdkdhfkjxvbfkj
+
+10.DISPLAY employees ename and salary whose name ends with 'a'
+select ename, salary
+  from employees
+  where ename LIKE '%a'
+
+11.DISPLAY employees ename and salary whose name second letter should be 'e'
+select ename, salary
+  from employees
+  where ename LIKE '_e%'
+11.DISPLAY employees ename and salary whose name second letter  from last is  'e'
+select ename, salary
+  from employees
+  where ename LIKE '%e_'
+
+
+
+  iii. logical operators : These operators are used to combine multiple conditions such as 
+           Logical and (AND / &&)  --- True only if both conditions are true
+           OR  -- True if any one of the condition is true
+           NOT(!) -- True if condition results false
+           XOR   --  True if exactly one condition is true
+    12. Write a query to retrieve employees ename and salary and country who are from either UK or Canada
+     select ename, salary, country
+from employees
+where country = "UK" or country ="Canada";
+
+    13. Write a query to retrieve employees ename, gender , salary whose salary is greater than 20000 and gender is male
+
+select ename, gender, salary from employees where salary > 20000 AND gender = 'M';
+
+Sort : sort is used to sort out the results either in ascending order or descending order. for sorting in mysql, we will use "ORDER BY"
+   select columns
+   from table name
+   where condition
+   order by column asc/desc;
+14. Print / display employees details according to their salaries in increasing order
+    select eid,ename,salary
+from employees
+order by salary ;
+
+15. Display employees details who are from uk or india with their names in alphabetical order
+
+select ename, gender, salary, country from employees
+ where country = 'UK' || country = 'india' 
+ORDER BY ename;
+
+LIMIT: it is used to restrict number of rows in the result
+   LIMIT number;
+
+16. Display Top 3 highest paid employees names and salary
+select eid,ename,salary
+from employees
+order by salary desc
+LIMIT 3;
+
+17. Display the Highest Paid Employee name and salary
+select ename,salary
+from employees
+order by salary desc
+LIMIT 1;
+
+OFFSET : it is used to skip certain rows before limit
+OFFSET number;
+
+ 18. Display employee name,id and salary  whose salary is second lowest
+select eid,ename,salary
+from employees
+order by salary desc
+limit 1 offset 1;
+
+Group By :  The Group By clause is used to arrange identical data in groups. it can be used with aggregate fubctions like count(),sum(),max(),min(),avg() etc..,. These functions allows us to perform calculation on groups
+   syntax: 
+            select column1, agreegate_function(column2)
+            from tableName
+            group by column1
+
+  1. using group by , print how many males or females are existed in employees table
+select gender, count(eid) as no_of_people
+from employees
+group by gender;
+
+ 2. using group by , print how many people are from each country in employees table
+
+select country , count(eid) as no_of_people
+from employees
+group by country
+
+3. using group by, print how many males and female in employees table whose salry is greater than 20000
+select gender, count(eid) as no_of_people
+from employees
+where salary > 20000
+group by gender
+
+
+having : having is the condition that is applied after group by . it used to filter groups .
+
+4. print the employees countries whose no_of_people count is greater than 1
+select country, count(eid) as no_of_people
+from employees
+group by country 
+having no_of_people>1
+
+5. print Indians from employees, gender wise count only of the count is greater than 2
+select gender, count(eid) as no_of_people
+from employees
+where country = "india"
+group by gender
+having no_of_people>2
+
+Aggregate Functions:  These functions are used to perform calculations on multiple rows and return a single value per group or per table
+   i. count :  count is used to count the number of rows 
+        find total how many employees are in office
+        select count(*) as total_employees
+from employees;
+  
+   ii. sum : sum is used to return total of numerical column
+       Find the total salary given to employees
+select sum(salary)
+from employees;
+    find the total salaries based on genders
+    select gender,count(eid), sum(salary)
+from employees
+group by gender
+
+  iii. avg : avg is used to returns average of a numerical column
+    find average salary based on country in employees table
+     select country, avg(salary)
+     from employees
+     group by country
+
+  iv. max : it is used to return the maximum value(largest value) in the column
+     find the highest salary based on gender in employees table
+     select gender,max(salary)
+from employees
+group by gender
+
+  v. min : it is used to return the minimum value (lowest value) in the column
+       find the lowest salary based on gender in employees table
+        select gender,min(salary)
+from employees
+group by gender
+
+vi.  group_concat(): it is used to return a concatenated string of values from the group
+     Display number of people based on gender along with their names in employees table
+select gender, count(eid), group_concat(ename)
+from employees
+group by gender;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
