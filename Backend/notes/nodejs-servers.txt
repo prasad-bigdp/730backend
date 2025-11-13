@@ -1,0 +1,14 @@
+Servers in NodeJS:
+Server : we can build API's and responding servers using nodejs core module 'http'. http module have a method createServer which takes a callback function with parameters request and response
+const http = require('http')
+const server = http.createServer((req,res)=>{})
+
+here req is request by client  which contains properties like 
+req.url ---> url of requested client
+req.method ---> method of requested client(GET,POST,PUT,DELETE)
+req.headers ---> headers of requested client
+
+res is response given by server 
+res.writeHead(statuscode,statusmessage,headers)
+res.write(data)  -- it is the response body
+res.end() -- it is the end of res

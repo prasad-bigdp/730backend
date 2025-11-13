@@ -1,0 +1,121 @@
+Customers [-]
+customer_id[int]
+first_name[varchar(100)]
+last_name[varchar(100)]
+age[int]
+country[varchar(100)]
+                                   Orders [-]
+                                   order_id[integer]
+                                    item[varchar(100)]
+                                    amount[integer]
+                                     customer_id[integer]
+Shippings [-]
+shipping_id [integer]
+status [integer]
+customer[integer]
+
+   creation:
+create database online_shop;
+use online_shop;
+create table Customers(
+customer_id int primary key,
+first_name varchar(100),
+last_name varchar(100),
+age int,
+country varchar(100)
+);
+create table Orders(
+order_id int primary key,
+item varchar(100),
+amount int,
+customer_id int,
+foreign key(customer_id) references Customers(customer_id)
+);
+create table Shippings(
+shipping_id int primary key,
+status int,
+customer int,
+foreign key(customer) references Customers(customer_id)
+);
+
+
+Joins:
+-----------
+   1. List all customers and their corresponding order Id's
+          select t1.customer_id, t2.order_id
+          from Customers as t1
+          left join
+          Orders as t2
+          ON t1.customer_id = t2.customer_id
+
+   2. Display all the  shipping status along with their customer name(firstname)
+          select t1.first_name, t2.status
+          from Customers as t1
+          inner join
+          Shippings as t2
+          ON t1.customer_id = t2.customer
+   3. Display customer_id, order_id, item name along with status(shippings) for customers who ordered atleast one item
+            select t1.customer_id, t2.order_id,t2.item, t3.status
+             FROM customers
+             inner join
+             Orders as t2 ON t1.customer_id = t2.customer_id
+             inner join
+             Shippings as t3 ON t1.customer_id = t3.customer
+
+   4. Display customers alongs with number of items they ordered and number of items got status 1
+select t1.customer_id, count(t2.customer_id) as number_of_orders, count(t3.customer) as no_of_delivered from Customers as t1 
+left JOIN  Orders as t2 ON t1.customer_id = t2.Customer_id
+inner JOIN Shippings as t3 ON t1.customer_id = t3.customer
+where t3.status = "Delivered"
+group by t2.customer_id 
+order by t1.customer_id
+
+ 5. show customers who haven't placed any order
+
+  6.  find orders that have not been 'delivered'
+
+ 7. Find customers who ordered more than 1
+ 8. Find all orders placed by customers who are from 'USA'
+
+
+
+
+     
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,4 @@
+Most used tools in backend are:
+   code editor(VSCode), IDE
+   terminals(command prompt) -- ls, pwd, cat, cd, cd.. , mkdir, rmdir, cp, mv, touch , rm , clear
+   Github & Git  -- distributed version control system

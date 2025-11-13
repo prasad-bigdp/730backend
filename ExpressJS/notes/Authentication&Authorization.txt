@@ -1,0 +1,33 @@
+Authentication: Authentication verifies users credentials and check whether user existed or not. like exactly who the user is?
+eg: login with email/passwors, Mobile number with OTP, Google etc..,
+
+Authorization: Authorization verifies what user can do? it defines what actions an autheticated user is allowed to perform
+eg: In amazon, customers can view products and buy
+dealers/sellers can upload products, manage and sell
+
+Types of Authentication: There are several ways to Authenticate an user. They are:
+  i. Basic Authentication: it is based on username and password. here, header is not secured. it is used in early APIs
+  ii. session based Authentication: here, server stores a session ID with cookies . it keeps the login the session is active , later session will be expires forcing user to login again
+  iii. Token based Authentication(JWT): Here, server issues a signed token and client stores it.
+  iv. oAuth/Single sign on(SSO): makes the user signup/login with third party accounts like Google, facebook, Github etc..,
+  v.2FA/OTP : Here, users verifies the numbers/mails and send the OTP to verify them(email -- SMTP , sms -- sms services)
+  vi. API KEY Auth --  verifies users based on their provided API Key
+
+  JWT : JWT stands for JSON Web Tokens
+  How it works is.
+    -- user sends email and password  -- /login
+    -- server verifies email and password
+    -- server generated JWT token signed with some secret Key
+    -- server sends token to client
+    -- client stores this token(localstorage/sessionStorage/cookies)
+    -- next time requests from client -- client sends token in Authorization header
+    -- server verifies that token using secret Key
+    -- if valid, access is granted
+
+Every JWT contains header.payload.signature
+header contains type, algorithms etc..,
+payload contains user details like id , name,email,pwd (send by client)
+signature created by using secret Key(it is random)
+
+
+

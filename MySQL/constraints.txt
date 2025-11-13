@@ -1,0 +1,39 @@
+23/09/25
+   Constraints in mySQL: In MySQL, constraint is a rule to a table's column to enforce data integrity. They help to make sure the data enters in the table follows certain rules
+     i. not null: specifies column should not have null value. it means that specific column must contain a a value.
+    ii. unique : specifies column values should not be repeated. it means that specific column always accept different data
+   iii. primary key: it is used to identify a row uniquely using a column. it combines not null and unique . There is only one column that specifies as primary key for a table.
+   iv. candidate key : it is equalent to primary key but not mentioned as primary key . it is not needed to specify a column as candidate key
+   v. foreign key : it is used to establish relationship between two tables. it ensures that the value in a column matches the value in another table primary key(or candidate or unique key)
+   vi. check : it is used to check a column meets a specific condition like salary column should have value >0
+  vii. auto_increment : it is used to keep a column values automatically increases by 1 from the previous row.
+  viii. default: it ensures that column contains a default value when no value is given
+eg: create table students
+(sid int primary key auto_increment,
+sname varchar(20) not null,
+age int check(age>=18),
+gender char(1), email varchar(30) unique,
+country varchar(10) default "india");
+create table courses(cid int primary key, 
+cname varchar(20) not null,
+fName varchar(20) not null,
+student_id int,
+foreign key(student_id) references
+students(sid) );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

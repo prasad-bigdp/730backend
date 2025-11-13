@@ -1,0 +1,128 @@
+Joins : Joins are used to get data by combining multiple tables. Each table will have a relation with another table.Primary keys in one table becomes foreign keys in another table
+
+   Joins are divided as multiple types such as
+    i. inner join
+   ii. left join
+  iii. right join
+   iv. full outer join
+   v. self join
+
+i. inner join: it is used to display the rows which are common in both tables. it matches values between tables and only matched results will be on display.
+    syntax: 
+         select t1.column1,t2.column2.......
+         from table1 as t1
+         inner join 
+         table2 as t2
+         on t1.common_column = t2.common_column
+
+ii. left join : it is used to display the complete rows of left table and common data from right table. incase of values which are present only on left table , it automatically fills null on result
+    syntax: 
+         select t1.column1,t2.column2.......
+         from table1 as t1
+         left join 
+         table2 as t2
+         on t1.common_column = t2.common_column
+
+iii. right join : it is used to display the complete rows of right table and common data from left table . Incase of values which are present only on right table, it automatically fills null on result
+    syntax: 
+         select t1.column1,t2.column2.......
+         from table1 as t1
+         right join 
+         table2 as t2
+         on t1.common_column = t2.common_column
+
+iv. full outer join : it is not possible to do full outer join directly in MySQL. There is way to achieve this using 'UNION'. UNION is used to combine results of multiple queries
+   left join query
+    union
+   right join query
+
+v. self join : it is used to combine a single table to itself. we assume the single table as two tables and make a relation between them
+
+  syntax is same as left or inner or right joins
+
+
+Sub Queries: Sub Queries are the Queries which are performed on the result of nested Query (Query inside another Query), always it performs nested queries first
+  syntax:  select column
+           from table 
+           where column2 = (select column1 
+                            from table
+                            where condition)
+
+Write a Query to print all the employees name and salary whose salary is greater than average salary
+
+select ename,salary
+from employees
+where salary > (select avg(salary)
+                from employees);
+
+There are different types of Sub Queries Such as : 
+      i. scalar SubQuery : This subQuery results/returns only single value
+      ii. Row SubQuery : This subQuery returns single Row
+      iii.column SubQuery : This subQuery returns single column (multiple rows)
+      iv. Table SubQuery : This SubQuery returns a table result
+      v. corelated subqueries : it refers to the columns of outer query, it will execute once per outer row
+
+2. Write a Query to find sum of salaries of employees who are india or US
+
+select sum(salary)
+from employees
+where eid IN (select eid
+from employees
+where country = "india" || country = "us");*/  
+-- write a query to print cname who bought
+-- "mouse" in orders table
+
+
+3. write a query to print the employee names whose salary is greater than the average salary of their own department
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

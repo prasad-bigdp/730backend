@@ -1,0 +1,318 @@
+Backend Web Development:
+======================
+    requirements : basic web knowledge , logic
+    Duration : 25 sessions (databases) +30 sessions(node+express+projects+deployement)
+   structure:
+           Databases : 
+               MySQL
+                  introduction, query languages,
+                  tables(ddl, dml,dql), operators,CRUD
+                  Queries (sort, group , where, having), aggregate functions
+                  Joins, sub queries, indexes, views, stored procedures, triggers, functions
+                  normalization , ACID, TCL , DCL
+             MongoDB:
+                   introduction, models(schemas)
+                   CRUD
+                   Queries (sort , group , limit , skip )
+                   Aggregation Framework
+                   BASE, Mongodb ATLAS
+     BACKEND
+             NODEJS
+                   introduction , module system
+                   default modules(http,os,fs)
+                   create a server,
+                   API's , npm packages(email)
+                    async vs sync, event loop , libuv    
+             Express JS
+                    introduction, basics
+                    REST API's
+                    controllers,middle ware, routing
+                    connecting db to backend
+                     Authentication and Authorization(JWT/SSO)
+                Build a project (full stack)  with react and node, express, db
+           Deployement
+                Docker, ci/cd , aws, kubernates
+           Advanced 
+                   system design, algorithms
+
+Tools   :  github , vs code, postman , docker desktop , mysql workbench , mongodb compass, netlify, onrender
+
+Day 1 & 2 : 
+-------------
+     Every Application Follows Client - Server Model
+          client requests the server through API and server peforms queries on DB
+          server sends the response to client using API
+     Every Application contains three layers
+          Presentation Layer -- front end technologies 
+                                             (html,css,js, react,angular,vue,ts)
+          Business Logic Layer  -- backend technologies
+                                             (node - express, java - spring boot, python - django, 
+                                               flask, C# -asp.net)
+          Data Layer  --  databases (mysql, mongodb, oracle, postgresql , sql lite, 
+                                                   mssql server , ORM)
+
+Databases:
+      what is a database ?
+        Database is a collection of information electronically and typically stored in a 
+        computing system
+        collection should be organizational which includes
+              relationships, filters, soerting, grouping, querying etc..,
+      what are the types of databases?
+         Based on How data is stored, databases are divided into multiple types such 
+        as      i. relational Database
+                 ii. object oriented database
+                iii. cloud database
+                iv. NoSQL
+                 v. document database(JSON)
+                vi. self driven databases(snow flake) etc..,
+      Relational Databases : Realtional Databases stores the data in table and form a relation between the tables  for complex queries
+
+Difference between Realtional Databases and Non Relational Databases
+      Realtional Databases stores the data in tables
+      Non Relational Databases stores the data in graphs, objects,documents etc..,
+ 
+      Relational databases are used for complex queries and are slow based on DB
+      Non Relational databases are used for simple and transactional queries and are fast compared to relational
+
+    Relational databases consumes large memory and non relational databases are lighweight
+
+    In Relational databases , tables maintain relation with each other and in Non relational databases , there is no relation
+
+   DBMS (database management system) : these are the systems which are used to manage the databases such as inserting the data, deleting the data, updating the data etc..,
+   eg: mySQl,Oracle, mssql etc..,
+
+MySQL :  MySQL is RDBMS(Relational Database Management System) which is used to manage the data in tables using Queries
+SQL : SQL (structured query lanaguage ) is used to provide syntaxes and structure to write queries which are understable by relational databases
+
+   ** SQL is a language and MySQL is a database management system. SQL can also used with other DBMS**
+
+Download  & Install MySQL and Workbench:
+
+1. goto mysql.com/downloads and click on community GPL downloads
+2.  select mysql installer for windows  and click on community(msi) download
+3. no thanks download 
+
+"MySQL community server" runs mySQL in local port
+To see or make changes to db using mysql , we use graphical user interface tool called "workbench"
+
+Sub Languages :  MySQL Provides lot of commands which are divided as per the usage into sub languages such as 
+    i. DDL (Data Definition Language)
+   ii. DML (Data Manipulation Language)
+  iii. DQL (Data Query Language)
+   iv. DCL (Data Control Language)
+    v. TCL (Transaction Control Language)
+
+DDL : These commands are used to define the data . we can also modify the structure of data
+   eg: create , alter, rename etc..,
+DML : These commands are used to manipulate the data such as adding the data, updating the data or deleting the data
+   eg: INSERT,DELETE,UPDATE
+DQL : These commands are used to write queries and retrieve the data.
+   eg: select, from , where etc..,
+DCL : These commands are used to control the data like permissions etc..,
+   eg: GRANT, REVOKE
+TCL  : These commands are used to control the transactions 
+   eg: commit, rollback,savepoint etc..,
+
+
+DDL Commands: 
+        i. create a database:
+              create database databaseName
+      ii. deleting a database:
+              drop database databaseName
+      iii. use the database:
+              use databaseName;
+      iv. show all the existed databases:
+              show databases
+
+22/09/25:
+    Datatypes in MySQL : Datatypes defines the type of data a partcular column/field holds. There are several datatypes in MySQL. Most popular were:
+           1. Integers : To define a column values integer, we can use types such as
+               TINYINT   -- used to take value of 1byte memory(-128 to 127)
+               INT   -- used to take integers with memory 4bytes
+               BIGINT  -- used to take integers with memory 8 bytes
+
+           2. Decimal : To define a column values as decimal number, we use
+               Decimal(M,D)  -- where M is the total digits and D is the digits after Decimal. used for currencies mostly
+                salary Decimal(10,2) --  maximum 10 digits total and 2 digits after decimal   (valid : 25522.01, 1.25 , Invalid :999999.000,999999999999.00)
+          
+           3. TEXT : To store the character/textual data, we use
+                char(d)   --- to store exact  no of characters
+                varchar(d) --- to store variable no of characters
+                 text    --- to store large amount of description
+           eg: gender char(1) -- 'M'/'F'
+                  name varchar(10) --- ram, raju, prasad
+                  text   -- "  some big paragraph "
+
+           4. Date and Time : To store the date and time in db, we use
+                 Date                       YYYY-MM-DD     
+                 Time                       HH:MM:SS
+                 Datetime                 YYYY-MM-DD HH:MM:SS
+              we can also use TIMESTAMP instead of Datetime
+
+          we can also use boolean values using TINYINT(1) --- true and TINYINT(0)   --- false
+
+     create a table : Tables contain data in the format of rows and columns. Each column value contain a datatype to specify the type of data that column contains
+      syntax:      create table tableName( column1 datatype constraint , column2  datatype constraint ........)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+                     
+                                  
+
+
+
+
+

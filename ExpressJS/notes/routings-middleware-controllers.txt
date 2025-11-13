@@ -1,0 +1,277 @@
+Routing in Express: 
+   Routing in Express refers how your application defines endpoints(URL's) and determines what should happeb when the server receives a specific request
+   Every route contains HTTP method, URL Path, callback
+   app.method(URL,callback)
+
+eg: app.get('/about',(req,res)=>res.send('About Page'))
+
+Route Handlers :  we can even handle the routes based response and request.
+Each route handler contains req,res and next(optional- it goes to next middleware)
+ for request , we can access req.params -- request parameters
+ req.url -- complete request URL
+ req.method -- complete method of request 
+ req.body -- complete body of request etc..,
+ req.query -- complete query parameters
+
+ when we send response, we can send response like
+ res.send('text/html')
+ res.json('json')
+ res.status(statuscode)   -- 200 for get success, 201 for post success, 404 for not found, 500/501 for internal server error, 503 forbidden etc..,
+ res.redirect()  -- redirect user
+ res.download()  -- send file for download
+
+Route Chaining : when multiple HTTP methods  share the same path, we can use route() method for clearner code
+app.route('/dashboard')
+   .get((req,res)=>res.send('all products details'))
+   .post((req,res)=>res.send('all user details'))
+   .get((req,res)=>res.send('all orders by user'))
+
+we can also achieve this using Router module
+import express from 'express'
+const app = express()
+const router = express.Router()
+router.get('/products',(req,res)=>res.send('All products'))
+
+
+Route with middleware : we can apply middlewares only to specific routes
+const auth = (req,res,next)=>{
+    if(!req.header.authorization){
+        return res.status(403).send("unauthorized")
+    }
+    next()
+}
+app.get('/dashboard',auth,(req,res)=>{
+    res.send('Dashboard details')
+})
+
+Middlewares:  Middleware is a function that runs between  request and response
+They can
+    i.modify the request or response
+    ii. stop or pass the control to next middleware(next())
+
+There are so many default or built in middlewares like
+   app.use(express.json())  // it is used for parsing the json body
+   app.use(express.static('public'))  // it is used to serve static files
+   app.use(cors())  // used for the CORS error
+   app.use(dotenv.config()) // it is used to make env files for secret info
+
+we can also make our own middlewares called custom middleware like
+  const printData = (req,res,next)=>{
+    console.log(`${req.method}:${req.url}`)
+    next()
+  }
+  app.get('products',printData,(req,res)=>{
+    res.send("sample response')
+  })
+
+  
+
+app.get('/api/2017/suggestions',(req,res)=>{
+  //check in db
+  console.log(req.query.limit)
+  //send response
+})
+
+Controllers and Models:
+  when you start with express, beginners often use following way
+app.get('/products', async(req,res)=>{
+  const products = await Products.find({})
+  res.send(products)
+})
+but in larger projects, it will be difficult to maintain this, so we follow a pattern called MVC pattern
+
+what is MVC?
+it stands for Model -  view - controller. 
+Model  -- it defines the structure of the data and interacts with database
+View   -- Handles UI rendering (HTML Templates or JSON)
+Controller -- it contains the business logic. it receives request, talks to model and sends the response
+Ideal folder structure is
+app/server.js
+db
+  config.js
+models
+  UserModel.js
+  ProductModel.js
+Middlewares
+  authMiddleware.js
+Controllers
+  userController.js
+  ProductController.js
+routes 
+  userRoutes.js
+  ProductRoutes.js
+.env  
+.gitignore
+package.json
+
+step by step process: 
+1. create a folder and goto terminal --> go to that folder and execute "npm init -y". it creates package.json to start application
+2. create a filer "server.js" in folder and in terminal , execute "npm i mongoose express dotenv"
+(mongoose is a package used to connect mongodb . it is called mongodb driver)
+3. create folder config and add "db.js" 
+ //db.js
+ import mongoose from "mongoose";
+export const connectDB = async () =>
+{
+    try
+    {
+        const conn = await mongoose.connect(process.env.MONGODB_URI);
+        console.log("mongodb is connected succesully")
+    }  
+    catch (err)
+    {
+        console.log("mongodb is not connected", err);
+        process.exit(1)
+    }
+}
+4. for getting structure in DB, we use models. create "models" folder and create ProductModel.js
+import mongoose from "mongoose";
+const productSchema = new mongoose.Schema({
+	id: { type: Number },
+    title: { type: String },
+    category: { type: String },
+    image: { type: String },
+    rating: {
+        rate: { type: Number },
+        count:{type:Number}
+    },
+    cost:{type:Number} 
+})
+
+export const Product = mongoose.model('Product',productSchema)
+
+5. create controllers Controllers/productController.js
+In this you will write methods and export them
+// basic get logic for all products
+import { Product } from "../Models/ProductModel.js";
+export const getProducts =async (req,res) =>
+{
+    try
+    {
+        const data = await Product.find()
+    res.status(200).json(data)
+    }
+    catch (err)
+    {
+        res.status(501).json({message:"internal server error"})
+    }
+}
+export const getProductById = async (req, res) =>
+{
+    try
+    {
+        console.log(req.params.id);
+        const data = await Product.find({id:req.params.id})
+        res.status(200).json(data)
+    }
+    catch (err)
+    {
+        console.log(err)
+       res.status(501).json({message:"internal server error"}) 
+    }
+}
+export const deleteProductById = async (req, res) => {
+	try {
+		console.log(req.params.id)
+		const data = await Product.deleteOne({ id: req.params.id })
+		res.json({message:"item deleted successfully",data:data})
+	} catch (err) {
+		console.log(err)
+		res.status(501).json({ message: "internal server error" })
+	}
+}
+export const addProduct = async (req, res) =>
+{
+    try
+    {
+        console.log(req.body)
+				const { title, id, category, image, cost, rating } = req.body
+				const response = await Product.insertOne({
+					id: id,
+					title: title,
+					category: category,
+					image: image,
+					cost: cost,
+					rating: rating,
+				})
+				res.status(201).json({ message: "product added successfully" })
+    }
+    catch (err)
+    {
+        console.log(err);
+        res.status(501).json({message:"internal server error"})
+    }
+}
+
+6. create routes for navigating to different routes
+Routes/productroutes.js
+import {
+	getProducts,
+	addProduct,
+	getProductById,
+	deleteProductById,
+} from "../Controllers/ProductController.js"
+import express from 'express'
+const productRoute = express.Router()
+console.log("hi")
+productRoute.route("/").get(getProducts)
+productRoute.route('/').post(addProduct)
+productRoute.route('/:id').get(getProductById)
+productRoute.route("/:id").delete(deleteProductById)
+export default productRoute
+
+7. create main file server.js and use express , cors, env config and connect to routes
+import express from "express"
+import { connectDB } from "./config/db.js"
+import dotenv from "dotenv"
+import cors from 'cors'
+import productRoute from "./Routes/ProductRoutes.js"
+dotenv.config() // middleware to connect .env files
+connectDB()
+const app = express();
+app.use(cors())
+app.use(express.json()) // middleaware for parsing
+app.use("/api/products", productRoute)
+app.listen(process.env.PORT, () => {
+	console.log(`application is running at http://localhost:${process.env.PORT}`)
+})
+
+To run the application, you can use npm start or "node server.js" or "nodemon start"
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

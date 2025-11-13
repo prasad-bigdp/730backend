@@ -1,0 +1,172 @@
+Aggregation Framework: The Aggregation Framework is used to Process data records and return computed results in a sequential manner. it is like performing sql operations such as GROUP BY,MAX,MIN,SUM,AVG etc.., but in a NOSQL, document oriented way.
+   Here Aggregation PipeLines transform the documents as they pass through the stages producing a new result set which passes to the next stage as input
+
+   syntax : db.collection.aggregate([{stage1:{}},{stage2:{}}...])
+   The first stage recieves total collection's documents as input
+
+   Most Used aggregate stages are : 
+   i. $match: it is used to match or filter the documents with a condition. it is similar to SQL where
+
+   Write a pipeline to filter only electronics category products
+   db.products.aggregate([{$match:{category:"electronics"}}])
+
+   write a pipeline to filter prody\ucts whose price is greater than 300
+   db.products.aggregate([{$match:{price:{$gt:300}}}])
+
+   ii. $group :  it is used to group all the documents by one or more fields and perform operations such as sum,avg,max,min,count etc..,
+   syntax: {
+    $group:{
+        "_id": "group_column",
+        field : {accumulator:expression}
+        ......
+    }
+   }
+
+   write a pipeline to print total sales per each category
+   db.products.aggregate([{$group:{"_id":"$category",totalSales:{$sum:"$cost"}}}])
+
+   write an aggregate pipeline to find totalSales of electronics category
+   db.products.aggregate([{$match:{category:"electronics"}},{$group:{"_id":"$category",totalSales:{$sum:"$cost"}}}])
+
+  write a pipeline to group all documents based on category and status
+  db.products.aggregate([{$group:{"_id":{status:"$status",category:"$category"}}}])
+
+  write a pipeline to print total number of products , their average per category. add their minimum and maximum price also per category
+  db.products.aggregate([{$group:{"_id":"$category",total:{$count:{}},average:{$avg:"$cost"},maximumValue:{$max:"$cost"},minimumValue:{$min:"$cost"}}}])
+
+
+  3. $project : it is used to shape or rename fields similar to SELECT in SQL
+  it controls which fields to show, rename and format the data
+  db.products.aggregate([{$match:{category:"electronics"}},{$project:{_id:0,name:"$title",price:"$cost"}}])
+
+  4. $sort,$limit,$skip: These are small stages which are used to sort, or limit or skip the documents
+
+db.products.aggregate([{$match:{category:"electronics"}},{$project:{_id:0,name:"$title",price:"$cost"}},{$sort:{price:1}},{$skip:1},{$limit:4},{$count:"total"}])
+
+  5. $lookup: it is used to perform joins between two collections
+  syntax:{          
+    $lookup:{
+        from:"collection_to_join",
+        localField:"field_from_current_collection",
+        foreignField:"field_from_joined_collection",
+        as:"output_array_field"
+    }
+  }
+By Default, it will perform left outer join  means all the document from left collection and only the matched ones from right collection
+
+Imagine I have two collections
+Customers: [
+  {
+    "_id":5525f5,
+    "name":"prasad"
+  },
+   {
+    "_id":84747848d5,
+    "name":"John"
+  }
+]
+Orders:
+[
+  {
+    "_id":343,
+    "customerID":5525f5,
+    "item":"laptop"
+  },
+   {
+    "_id":565,
+    "customerID":5525f5,
+    "item":"mobile"
+  },
+  {
+    "_id":6565,
+    "customerID":84747848d5,
+    "item":"TV"
+  }
+]
+
+Query to join both collections
+db.customers.aggregate([{
+  $lookup:{
+    from:"orders",
+    localField: "_id",
+    foreignField:"customerID"
+    as: "itemsBought"
+  }
+}])
+
+query to join collections
+db.products.aggregate([{$lookup:{from:"orders",localField:"id",foreignField:"productId",as:"ordered_people"}}])
+
+
+lookup creates an array but we can flatten the array using $unwind.
+
+$unwind : it is used to flatten an array. it takes an array field and creates one document per element
+{$unwind:"$arrayField"}
+eg: {"name":"john","subjects":["maths","physics"]}
+after unwind
+{"name":"john","subjects":"maths"},{"name:"john","subjects":"physics"}
+
+$facet : $facet is used to run parallel pipelines/stages on the same input documents and combines the results.
+it is used mainly for dahboards, results, reports etc..,
+{
+  $facet:{
+    outputField:[{pipeline1}],
+    outputField2:[{pipeline2}]
+  }
+}
+
+
+db.employees.aggregate([ {$facet:{
+    countryWise:[{$group:{_id:"$country",people:{$count:{}}}}],
+    roleWise:[{$group:{_id:"$role",people:{$count:{}}}}]
+  }
+  }])
+
+$addFields : it is used to add new fields to the existing collections
+db.collection.aggregate([
+  {$addFields:{fieldname:<query>}}
+])
+db.products.aggregate([{$addFields:{discount:{$multiply:["$cost",0.8]}}}])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

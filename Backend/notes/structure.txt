@@ -1,0 +1,14 @@
+NodeJS contents
+  -- introduction, installation, features, hello world code
+  -- modules (http, fs, path,url,os), npm, package,json, common js vs es6
+  --  basic API server using http module
+  -- Asynchronous programming in NodeJS(callbacks,callback hell, promises, async await,timers)
+  -- How nodejs works (event loop,libuv,thread pool)
+
+ExpressJS contents  
+  -- introduction, installation, features, hello world code
+  -- basic API server using express
+  -- middleware (what is middleware, types of middleware, how to use middleware)
+  -- routing (defining routes, route parameters, query parameters)
+  -- error handling (error handling middleware, try-catch blocks)
+  -- connecting to databases (MongoDB, MySQL)

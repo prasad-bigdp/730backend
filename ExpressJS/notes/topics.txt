@@ -1,0 +1,12 @@
+what is express? how it works?
+create basic API server(get,post,put,delete) using express
+what is Routing? different routes
+what is middleware?
+what are controllers? what are models/schemas?
+How to connect to mongoDB & mySQL
+create basic API server(get,post,put,delete) using express & mongoDB/mySQL
+Authorization & Authentication (JWT,SSO etc..,)
+rate limiting, security measures
+
+Advanced  : web sockets, algorithms/design patterns , system design
+MAIN PROJECT 

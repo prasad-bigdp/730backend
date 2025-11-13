@@ -1,0 +1,159 @@
+NodeJS Modules : 
+   Modules are small, independent blocks of code that can be reused throughout your application.
+   They help to organize code and make it more manageable.
+    
+   In Nodejs, Every file is treated as a module.
+
+Types of modules: 
+  i. core(Built in ) Modules:
+          NodeJS includes many built in modules you can use immediately
+
+    a. OS Module: we can use opertations which are realted to 'os' level by importing
+    os module
+      const os = require('os'); //common JS
+//import os from 'os'  //ES6 module system
+console.log(os.type())
+console.log(os.platform())
+console.log(os.arch())
+console.log(os.freemem())
+console.log(os.userInfo())
+console.log(os.homedir())
+console.log(os.hostname())   
+
+   2. path: it helps works with files and directory paths
+    in a cross platform way
+  const path = require('path')  
+const filepath = 'home/project/app/user.js';
+console.log(path.dirname(filepath))
+console.log(path.extname(filepath))
+console.log(path.basename(filepath))
+console.log(path.delimiter)
+console.log(path.join("prasad", "raj", "shekhar"))
+console.log(path.resolve("prasad","raj","shekhar"))
+
+
+3.  fs : it handles file operations like reading, writing, deleting and updating the files
+
+const fs = require('fs');
+ fs.writeFileSync('prasad.txt', "Hello to Node JS")
+
+//read the file
+const data = fs.readFileSync('prasad.txt','utf-8')
+console.log(data)
+
+fs.readFile('prasad.txt', "utf-8", (err,data) =>
+{
+    if (err) throw err;
+    console.log(data)
+ })
+
+fs.appendFileSync('prasad.txt', "this is extra text");
+fs.unlinkSync('prasad.txt')
+
+  http server :
+     it is used to create simple web servers or make http requests
+     const server = http.createServer((req, res) =>
+{
+    if (req.method === "GET")
+    {
+        res.writeHead(200, "This is the status", {
+					"content-type": "application/json",
+				})
+				res.write(JSON.stringify(data))
+				res.end()
+    }
+}
+
+URL Module : it is used to provide utilies for the url resolution and parsing. it helps to work with URLS and manipulate URLS
+const url = require('url')
+const myURL = new URL('https://www.prasad.com/blogposts?category="JAVA"')
+console.log(myURL)
+
+console.log(myURL.searchParams.get('category'))
+
+Module Systems: There are different module system which are used to import and export modules(files). Most widely used are
+   a. common js module Systems
+   b. ECMASCRIPT Module system(ES6+)
+
+a. commonJS:
+   //sampleModule.js
+   function sum(a, b)
+{
+    console.log(a + b);
+}
+const x =20
+module.exports = {sum,x}
+
+//basicModule.js
+const obj = require('./sampleModule')
+obj.sum(2,3)
+
+ECMASCRIPT Module System: ECMASCRIPT released new features in 2015 called "ES6"
+Here you can use 'import' and 'export' keywords to import and export data between files/modules
+Normally you can use modules in nodejs in two ways
+   i. use extension 'mjs' (module javascript)
+   ii. use package.json -- it stores the meta data of application
+
+
+Third Party Modules or npm packages : These libraries are used for various purposes which can be installed or uninstalled using 'npm'(node package manager)
+
+npm : it is a package manager for nodejs packages or modules. it is tool that helps to install, update, and manage third party modules in your nodejs application. it comes bundled with nodejs installation
+  To check npm version : npm -v
+  To initiate a new nodejs project : npm init -y
+ it creates a package.json file which contains the metadata of the project
+  To install a package : npm install package_name or npm install package_name@version
+  To uninstall a package : npm uninstall package_name
+   To update a package : npm update package_name
+   To Run a project: npm start
+
+   package.json: it is the heart of any nodejs project. it contains the metadata about the project like name, version, description, main file, scripts, dependencies etc.
+
+   some of the popular npm packages are:
+    1. express : it is a web application framework for nodejs. it simplifies the process of building web applications and APIs
+   2. mongoose : it is an ODM(Object Data Modeling) library for MongoDB and Nodejs. it provides a schema-based solution to model application data
+   3. lodash : it is a utility library that provides various functions for common programming tasks like manipulating arrays, objects, strings etc.
+   4. axios : it is a promise-based HTTP client for making requests to servers. it works in both browser and nodejs environments
+   5. dotenv : it is used to load environment variables from a .env file into process.env. it helps to manage configuration settings for different environments like development, testing, and production
+   6. cors : it is a middleware that enables Cross-Origin Resource Sharing (CORS) in Express applications. it allows or restricts resources on a web server to be requested from another domain outside the domain from which the resource originated
+   7. nodemon: it is a development tool that automatically restarts the nodejs application whenever file changes in the directory are detected. it helps to improve development workflow by eliminating the need to manually restart the server after every code change
+   To install any package globally you can use npm install -g package-name
+   To run nodemon, i used "nodemon filename"
+
+ Scripts in Package.json: scripts are the custom commands that can run with default prefix "npm run". we can define script commands
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

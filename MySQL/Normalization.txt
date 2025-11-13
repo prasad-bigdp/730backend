@@ -1,0 +1,62 @@
+normalization in MySQL: It is the process of organizing data in a database to reduce redundancy(repeating data) and improve data integrity. The main goal of normalization is to ensure that each piece of data is stored in only one place, which helps to minimize inconsistencies and anomalies when data is inserted, updated, or deleted.
+  why normalization?
+    Avoid duplicate data
+    Ensure data consistency
+    make data easier to maintain
+    improve query efficiency
+There are different levels of normalization called normal forms
+ i.First Normal Form(1NF): Each row must contain atomic values(unique row)
+    sid    sname     phone_number   addreess
+    101    PRASAD    445566,885544   hyd,tg,india     --- this is bad(divide them as separate)
+  
+ ii. second Normal Form : Table should be in 1NF.all non key columns depends on primary key
+    sid    sname  course_id    course_name
+    102    Prasad  201          React           -- this is bad because course_name depends on course_id instead of sid(primary key). divide into two tables
+
+ iii. 3NF(Third Normal Form): Table should be in 2NF. all columns depends on the primary key and no transitive dependency
+    sid   sname   did dname  dfaculty_id  f_id f_name
+    103   RAJ     113  CSE    201          201  shekhar
+
+  iv. BCNF(boyce-codd normal form): table should be in 3NF. every determinant must be a candidate key
+
+  Databases should also follow some principles called ACID principles.These are the key properties for RDBMS like mySQL,postgreSQL,ORACLE etc..,
+
+  Atomicity   --  any transaction must be complete or done not at all
+  Consistency  -- After a transaction, db must remains in valid state -- all constraints, foreign keys and rules must hold true
+  Isolation   -- Every transaction should be independent
+  Durability  -- once a transaction is commited(saved),data should be safe even if system crashes
+
+TCL (Transaction control Language): These commands are used to control the transactions. we can use commands like
+  commit -- saves all changes made during the current transaction
+  rollback -- undoes all the changes made during the current transaction
+  savepoint -- sets a point within a transaction to which you can rollback;
+
+  To separate transactions from other queries , we can use "start transaction"
+
+
+DCL (Data Control langauge) : it is used to control access to the data in database;
+
+   GRANT -- gives privilages to user
+   REVOKE -- Removes previously granted privilages
+
+   eg: GRANT INSERT,DELETE on employees to 'a@gmail.com' identified by 'prasad'
+   REVOKE DELETE on employees FROM 'a@gmail.com'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+

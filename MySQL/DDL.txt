@@ -1,0 +1,89 @@
+DDL Commands :
+     2. ALTER : Alter is used to modify columns or structure of table like adding a column, deleting a column, updating a column
+    -- add a column
+USE schooldb;
+ALTER TABLE STUDENTS
+ADD COLUMN PHNO INT NOT NULL;
+   By default it will add at the end of table and incase if we want at starting we can use "FIRST" . Incase if we want after a column, we can use "AFTER COLUMNNAME"
+
+-- rename the column
+ALTER TABLE students
+RENAME COLUMN PHNO to ph_no;
+
+-- modify the column
+ALTER TABLE students
+MODIFY ph_no char(10);
+
+-- delete a column
+ALTER TABLE students
+drop COLUMN ph_no;
+
+3. DROP : it is used to delete the database objects completely(like tables, views, datatypes etc..,). it removes the entire structure permanently
+   DROP DATABASE database_name;
+
+  DROP TABLE table_name;
+
+4. TRUNCATE : it is used to remove all the data from a table but keep the structure intact
+   TRUNCATE TABLE table_name;
+ The difference between truncate and drop are drop deletes the complete table, truncate deletes the only data in table. truncate is faster than drop and delete. DELETE is used to delete individual rows
+
+5. RENAME : RENAME is used to change the name of table
+    RENAME table tablename to new_tableName;
+
+Task 1 : create a table named "employees" with eid,ename,role. use proper datatypes and eid is primary key & auto incremented. ename should not be empty. 
+    -- add columns gender and salary. gender should be after ename . salary should be at last
+   -- change the name of "role" to "erole"
+   -- delete the column "erole"
+   -- change the name of table "employess" to "emp"
+  -- delete the table "emp"
+perform all these in "officeDB".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
