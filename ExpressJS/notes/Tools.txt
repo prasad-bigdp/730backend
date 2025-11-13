@@ -1,4 +1,15 @@
 Most used tools in backend are:
    code editor(VSCode), IDE
    terminals(command prompt) -- ls, pwd, cat, cd, cd.. , mkdir, rmdir, cp, mv, touch , rm , clear
-   Github & Git  -- distributed version control system
+   Github(online website to upload,deploy,collaborate code) & Git  -- distributed version control system
+       for first time, download git & install
+       create github account
+       in terminal(cmd), git config --global user.name "your user name"
+       git config --global user.email "your user email"
+       git init
+       git add .
+       git commit -m "update"
+
+       git remote add origin "link of respository"
+       git push -u origin main/master
+    
