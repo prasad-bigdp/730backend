@@ -19,4 +19,5 @@ Most used tools in backend are:
       git merge origin/branchname
       git pull origin branchname
 
-    
+    can fork and create your own copy and clone it 
+       git vlone repo link
