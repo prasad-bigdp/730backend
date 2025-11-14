@@ -12,4 +12,11 @@ Most used tools in backend are:
 
        git remote add origin "link of respository"
        git push -u origin main/master
+
+      git branch branchname
+      git checkout branchname
+
+      git merge origin/branchname
+      git pull origin branchname
+
     
