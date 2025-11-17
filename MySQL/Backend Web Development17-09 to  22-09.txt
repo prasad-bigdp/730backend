@@ -30,6 +30,7 @@ Backend Web Development:
                     connecting db to backend
                      Authentication and Authorization(JWT/SSO)
                 Build a project (full stack)  with react and node, express, db
+           github, docker
            Deployement
                 Docker, ci/cd , aws, kubernates
            Advanced 

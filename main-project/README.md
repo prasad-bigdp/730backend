@@ -1,0 +1,1 @@
+# This is sample ecommerce template which can be installed using npm. it provides complete template needed to create ecommerce backend.

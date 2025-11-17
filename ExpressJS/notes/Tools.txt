@@ -17,7 +17,37 @@ Most used tools in backend are:
       git checkout branchname
 
       git merge origin/branchname
-      git pull origin branchname
 
+open source contribution:
     can fork and create your own copy and clone it 
-       git vlone repo link
+       git clone repo link
+       push the changes and create a PR
+
+
+swagger : swagger is used to setup basic DOCS API. it is used as a API documentation
+like get/users -- get all users
+GET/users/[id]  -- get user by id
+POST/users  -- create a user
+
+npm i swagger-jsdoc swagger-ui-express
+
+rate LIMITS :  for example someone is accessing your API multiple times. you can restrict based on IP,based on count,based on user
+like specific user can attempt login request per day 3 times
+
+npm i express-rate-limit
+
+we can also use redis (it is a special database for caching)
+npm i redis rate-limit-redis
+
+Input validation : we have to validate all inputs received by server from client like username,email,password. most used validator package is JOI
+npm i JOI
+
+for more security probelms like cross site scripting(XSS),clickjacking, cache poising etc.., we can use package "helmet"
+npm i helmet
+
+Docker: docker is used for containization. for eg: some code is working in my system because i have latest configuration. it may not work exactly same in your system.Docker solve this
+
+
+
+
+
