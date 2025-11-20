@@ -1,7 +1,7 @@
 {
-  "name": "main-project",
+  "name": "basic-store-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "it is a basic server code for an ecommerce website",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
